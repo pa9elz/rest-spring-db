@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+<h3 class="center">Конвертер валют</h3>
+
+<form>
+    <p><input type="text" name="login" value="" placeholder="Login"/></p>
+    <p><input type="text" name="password" value="" placeholder="Password"/></p>
+    <p><input type="submit" value="Войти" class="btn btn-primary green"/>
+        <input type="reset" value="reset" class="btn btn-primary red"/></p>
+</form>
+<h3 class="center">List of Books</h3>
+
+<table class="centered">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Author</th>
+        <!--        <th></th>-->
+        <!--        <th></th>-->
+        <!--        <th></th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book: ${books}">
+        <td th:text="${book.name}"/>
+        <td th:text="${book.author}"/>
+
+        <!--        <td><a href="" th:href="@{'/' + ${book.id} + '/show'}">SHOW</a></td>-->
+        <!--        <td><a href="" th:href="@{'/' + ${book.id} + '/edit'}">EDIT</a></td>-->
+        <!--        <td><a href="" th:href="@{'/' + ${book.id} + '/delete'}">DELETE</a></td>-->
+    </tr>
+    </tbody>
+</table>
+<script>
+    function validateForm() {
+
+        var form = document.forms["myForm"];
+        var inp1 = form["author"].value();
+        var inp2 = form["name"].value();
+        console.log(inp1);
+        if (inp1 == "" || inp2 == "")
+        {
+            alert("Name must be filled out");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<div class="container center">
+    <form name="myForm" action="#" onsubmit="return validateForm();" th:action="@{/}" th:object="${newbook}"
+          method="post">
+        <p>author: <input type="text" th:field="*{author}" value="au"/></p>
+        <p>name: <input type="text" th:field="*{name}" value="name1"/></p>
+
+        <p><input type="submit" value="create new book" class="btn btn-primary green"/>
+            <input type="reset" value="reset" class="btn btn-primary red"/></p>
+    </form>
+</div>
+</body>
+</html>
